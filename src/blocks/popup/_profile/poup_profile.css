@@ -1,0 +1,20 @@
+.popup_profile{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .6s ease;
+    z-index: 1;
+}
+
+.popup_profile::before{
+    content: '';
+    background-color: #000000;
+    opacity: .9;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}

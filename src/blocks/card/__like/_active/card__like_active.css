@@ -1,0 +1,27 @@
+@keyframes scale {
+    0%, 20%, 60%, 100% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.2);
+    }
+
+    80% {
+        transform: scale(1);
+    }
+}
+
+
+
+.card__like_active{
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    background: url(../../../../images/like-button_active.svg) center;
+
+}
+
+.card__like_active:hover{
+    animation: ease 1.4s scale;
+}

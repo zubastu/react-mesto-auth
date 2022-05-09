@@ -1,0 +1,11 @@
+.close-btn_profile{
+    position: absolute;
+    top: -24px;
+    right: -24px;
+}
+@media screen and (max-width:500px) {
+    .close-btn_profile{
+        top: -36px;
+        right: 0;
+    }
+}

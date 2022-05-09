@@ -1,0 +1,13 @@
+.popup__photo-paragraph{
+    min-width: 291px;
+    font-size: 12px;
+    line-height: 15px;
+    color: white;
+    text-align: start;
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+}

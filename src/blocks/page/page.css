@@ -1,0 +1,10 @@
+.page {
+    min-height: 90vh;
+    max-width: 880px;
+    min-width: 320px;
+    background-color: #000000;
+    font-family: 'Inter',"Arial", sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}

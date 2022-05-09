@@ -1,0 +1,41 @@
+@keyframes rotate {
+    0%, 20%, 40%, 60%, 100% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(180deg);
+    }
+
+    40% {
+        transform: rotate(360deg);
+    }
+
+    60% {
+        transform: rotate(180deg);
+    }
+
+    80% {
+        transform: rotate(0deg);
+    }
+}
+
+.close-btn{
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    background:url(../../images/popup__close-button.svg) center;
+    width: 24px;
+    height: 24px;
+}
+@media screen and (max-width:500px) {
+    .close-btn{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.close-btn:hover {
+    animation: rotate ease-in 3s;
+}

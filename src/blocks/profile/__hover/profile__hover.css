@@ -1,0 +1,11 @@
+.profile__hover{
+    background: url("../../../images/avatar-edit-icon.svg") no-repeat center;
+    min-width: 26px;
+    min-height: 26px;
+    opacity: 1;
+    z-index: 0;
+}
+.profile__hover:hover{
+    opacity: 1;
+    z-index: 3;
+}

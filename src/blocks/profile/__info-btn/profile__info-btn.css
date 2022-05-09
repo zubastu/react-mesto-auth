@@ -1,0 +1,21 @@
+.profile__info-btn{
+    min-width: 24px;
+    min-height: 24px;
+    max-height: 24px;
+    max-width: 24px;
+    background: url(../../../images/Edit-Button.svg) no-repeat;
+    grid-area: editButton;
+    margin: 0 0 0 18px;
+}
+
+@media screen and (max-width: 720px){
+    .profile__info-btn{
+        min-width: 18px;
+        min-height: 18px;
+        max-height: 18px;
+        max-width: 18px;
+        justify-self: center;
+        background: url(../../../images/button-edit_size-smallsvg.png) no-repeat;
+        margin: 0;
+    }
+}

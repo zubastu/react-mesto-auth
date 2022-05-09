@@ -1,0 +1,30 @@
+.profile__info-text{
+    min-width: 320px;
+    grid-area: text;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+            'name editButton'
+            'job job';
+    align-items: baseline;
+    margin: 0 0 0 30px;
+}
+
+@media screen and (max-width: 930px){
+    .profile__info-text{
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 720px){
+    .profile__info-text{
+        margin: 0 auto;
+        min-width: 282px;
+        max-width: 282px;
+        display: grid;
+        grid-template-columns: 1.70fr 0.30fr;
+        grid-template-areas:
+                'name editButton'
+                'job job';
+    }
+}

@@ -1,0 +1,19 @@
+.delete-container{
+    z-index: 2;
+    position: absolute;
+    max-width: 430px;
+    height: 181px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    padding: 34px 36px 36px;
+    box-sizing: border-box;
+}
+@media screen and (max-width:500px) {
+    .delete-container{
+        width: 282px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

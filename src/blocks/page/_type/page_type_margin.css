@@ -1,0 +1,9 @@
+.page_type_margin{
+    margin: 45px auto 0;
+}
+
+@media screen and (max-width:500px) {
+    .page_type_margin{
+        margin: 28px auto 0;
+    }
+}

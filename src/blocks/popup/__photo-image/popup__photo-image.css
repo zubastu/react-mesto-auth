@@ -1,0 +1,9 @@
+.popup__photo-image{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 75vw;
+    max-height: 75vh;
+}
