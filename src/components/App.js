@@ -15,6 +15,7 @@ import reducer from "../utils/reducer";
 import Register from "./Register";
 import Login from "./Login";
 import InfoToolTip from "./InfoToolTip";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
@@ -231,22 +232,7 @@ function App() {
       <Header state={state} />
       <CurrentUserContext.Provider value={state.currentUser}>
         <Switch>
-          <Route exact path="/">
-            {state.loggedIn ? (
-              <Main
-                handleOpenProfile={handleOpenProfile}
-                handleOpenCard={handleOpenCard}
-                handleOpenAvatar={handleOpenAvatar}
-                handleOpenCardImage={handleOpenCardImage}
-                cards={state.cards}
-                handleCardLike={handleCardLike}
-                openAcceptDeletePopup={openAcceptDeletePopup}
-                isLoadingCards={state.loadingCards}
-              />
-            ) : (
-              <Redirect to="/sign-in" />
-            )}
-          </Route>
+
 
           <Route path="/sign-up">
             <Register />
@@ -257,7 +243,6 @@ function App() {
               name="InfoToolTip"
             />
           </Route>
-
           <Route path="/sign-in">
             <Login />
             <InfoToolTip
@@ -267,6 +252,19 @@ function App() {
               name="InfoToolTip"
             />
           </Route>
+          <ProtectedRoute
+            path="/"
+            component={Main}
+            handleOpenProfile={handleOpenProfile}
+            handleOpenCard={handleOpenCard}
+            handleOpenAvatar={handleOpenAvatar}
+            handleOpenCardImage={handleOpenCardImage}
+            cards={state.cards}
+            handleCardLike={handleCardLike}
+            openAcceptDeletePopup={openAcceptDeletePopup}
+            isLoadingCards={state.loadingCards}
+            loggedIn={state.loggedIn}
+          ></ProtectedRoute>
         </Switch>
 
         <EditProfilePopup
