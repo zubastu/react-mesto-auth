@@ -32,7 +32,7 @@ function App() {
     currentUser: {},
     cards: [],
     openedPopupName: "",
-    loggedIn: false,
+    loggedIn: true,
     registrationResult: false,
   });
 
