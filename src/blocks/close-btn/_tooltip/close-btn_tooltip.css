@@ -1,0 +1,13 @@
+.close-btn_tooltip{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: -40px;
+    right: -40px;
+}
+@media screen and (max-width:500px) {
+    .close-btn_tooltip{
+        top: -36px;
+        right: 0;
+    }
+}

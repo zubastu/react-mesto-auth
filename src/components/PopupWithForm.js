@@ -22,7 +22,7 @@ const PopupWithForm = ({
   return (
     <Popup className={popupClassName} closePopup={closePopup} name={name}>
       <form
-        className={`${formName}`}
+        className={`${formName} form_type_popup`}
         id={`${name}__form`}
         name={`${name}`}
         onSubmit={onSubmit}

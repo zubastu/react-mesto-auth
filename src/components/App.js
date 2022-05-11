@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
@@ -11,6 +12,9 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import PopupDeleteAccept from "./PopupDeleteAccept";
 import reducer from "../utils/reducer";
+import Register from "./Register";
+import Login from "./Login";
+import InfoToolTip from "./InfoToolTip";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
@@ -19,13 +23,16 @@ function App() {
     isOpenImage: false,
     isOpenAvatar: false,
     isOpenAccept: false,
-    card: {},
-    selectedCardDelete: {},
+    isOpenInfoToolTip: true,
     loadingCards: false,
     isUploading: false,
+    card: {},
+    selectedCardDelete: {},
     currentUser: {},
     cards: [],
     openedPopupName: "",
+    loggedIn: false,
+    registrationResult: false,
   });
 
   useEffect(() => {
@@ -221,18 +228,47 @@ function App() {
 
   return (
     <div className="page page_type_margin">
-      <Header />
+      <Header state={state} />
       <CurrentUserContext.Provider value={state.currentUser}>
-        <Main
-          handleOpenProfile={handleOpenProfile}
-          handleOpenCard={handleOpenCard}
-          handleOpenAvatar={handleOpenAvatar}
-          handleOpenCardImage={handleOpenCardImage}
-          cards={state.cards}
-          handleCardLike={handleCardLike}
-          openAcceptDeletePopup={openAcceptDeletePopup}
-          isLoadingCards={state.loadingCards}
-        />
+        <Switch>
+          <Route exact path="/">
+            {state.loggedIn ? (
+              <Main
+                handleOpenProfile={handleOpenProfile}
+                handleOpenCard={handleOpenCard}
+                handleOpenAvatar={handleOpenAvatar}
+                handleOpenCardImage={handleOpenCardImage}
+                cards={state.cards}
+                handleCardLike={handleCardLike}
+                openAcceptDeletePopup={openAcceptDeletePopup}
+                isLoadingCards={state.loadingCards}
+              />
+            ) : (
+              <Redirect to="/sign-in" />
+            )}
+          </Route>
+
+          <Route path="/sign-up">
+            <Register />
+            <InfoToolTip
+              onClose={closePopup}
+              isOpened={state.isOpenInfoToolTip}
+              registrationResult={state.registrationResult}
+              name="InfoToolTip"
+            />
+          </Route>
+
+          <Route path="/sign-in">
+            <Login />
+            <InfoToolTip
+              onClose={closePopup}
+              isOpened={state.isOpenInfoToolTip}
+              registrationResult={state.registrationResult}
+              name="InfoToolTip"
+            />
+          </Route>
+        </Switch>
+
         <EditProfilePopup
           isUploading={state.isUploading}
           onUpdateUser={handleUpdateUser}

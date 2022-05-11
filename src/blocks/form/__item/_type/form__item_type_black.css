@@ -1,0 +1,5 @@
+.form__item_type_black{
+    background-color: #000000;
+    color: #CCCCCC;
+    border-bottom: 2px solid rgba(204, 204, 204, 0.15);
+}

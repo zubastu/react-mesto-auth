@@ -1,9 +1,6 @@
 .form{
     width: 430px;
-    height: 330px;
     background-color: #FFFFFF;
-    position: absolute;
-    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;

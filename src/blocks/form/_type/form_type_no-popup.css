@@ -1,0 +1,16 @@
+.form_type_no-popup {
+  width: 430px;
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .form_type_no-popup {
+    width: 282px;
+    margin-top: 122px;
+  }
+}

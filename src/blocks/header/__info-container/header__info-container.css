@@ -1,0 +1,5 @@
+.header__info-container {
+  display: grid;
+  align-items: baseline;
+  grid-template-areas: "header-email header-button";
+}
