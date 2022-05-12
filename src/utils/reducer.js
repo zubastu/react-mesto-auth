@@ -108,6 +108,11 @@ export default function (state, action) {
         ...state,
         [`isOpen${state.openedPopupName}`]: false,
       };
+    case "set-history":
+      return {
+        ...state,
+        history: action.dispatch
+      };
 
     default:
       return state;
