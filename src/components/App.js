@@ -24,7 +24,7 @@ function App() {
     isOpenImage: false,
     isOpenAvatar: false,
     isOpenAccept: false,
-    isOpenInfoToolTip: true,
+    isOpenInfoToolTip: false,
     loadingCards: false,
     isUploading: false,
     card: {},
@@ -32,7 +32,7 @@ function App() {
     currentUser: {},
     cards: [],
     openedPopupName: "",
-    loggedIn: true,
+    loggedIn: false,
     registrationResult: false,
   });
 
@@ -228,10 +228,10 @@ function App() {
   };
 
   return (
-    <div className="page page_type_margin">
-      <BrowserRouter>
-        <Header loggedIn={state.loggedIn} dispatch={dispatch} />
+    <BrowserRouter>
+      <div className="page page_type_margin">
         <CurrentUserContext.Provider value={state.currentUser}>
+          <Header loggedIn={state.loggedIn} dispatch={dispatch} />
           <Switch>
             <Route exact path="/sign-up">
               <Register />
@@ -286,18 +286,18 @@ function App() {
             name="InfoToolTip"
           />
         </CurrentUserContext.Provider>
-      </BrowserRouter>
 
-      <Footer />
+        <Footer />
 
-      <ImagePopup
-        selectedCard={state.card}
-        onClose={closePopup}
-        isOpened={state.isOpenImage}
-        selector="popup popup_photo"
-        name="Image"
-      />
-    </div>
+        <ImagePopup
+          selectedCard={state.card}
+          onClose={closePopup}
+          isOpened={state.isOpenImage}
+          selector="popup popup_photo"
+          name="Image"
+        />
+      </div>
+    </BrowserRouter>
   );
 }
 
