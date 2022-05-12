@@ -34,7 +34,6 @@ function App() {
     openedPopupName: "",
     loggedIn: true,
     registrationResult: false,
-    history: {}
   });
 
   useEffect(() => {
@@ -230,73 +229,72 @@ function App() {
 
   return (
     <div className="page page_type_margin">
+      <Header loggedIn={state.loggedIn} dispatch={dispatch} />
+      <CurrentUserContext.Provider value={state.currentUser}>
+        <Switch>
+          <Route exact path="/sign-up">
+            <Register />
+          </Route>
+          <Route exact path="/sign-in">
+            <Login />
+          </Route>
+          <ProtectedRoute
+            exact
+            path="/"
+            component={Main}
+            handleOpenProfile={handleOpenProfile}
+            handleOpenCard={handleOpenCard}
+            handleOpenAvatar={handleOpenAvatar}
+            handleOpenCardImage={handleOpenCardImage}
+            cards={state.cards}
+            handleCardLike={handleCardLike}
+            openAcceptDeletePopup={openAcceptDeletePopup}
+            isLoadingCards={state.loadingCards}
+            loggedIn={state.loggedIn}
+          ></ProtectedRoute>
+        </Switch>
 
-        <Header loggedIn={state.loggedIn} dispatch={dispatch} />
-        <CurrentUserContext.Provider value={state.currentUser}>
-          <Switch>
-            <Route exact path="/sign-up">
-              <Register />
-            </Route>
-            <Route exact path="/sign-in">
-              <Login />
-            </Route>
-            <ProtectedRoute
-              exact
-              path="/"
-              component={Main}
-              handleOpenProfile={handleOpenProfile}
-              handleOpenCard={handleOpenCard}
-              handleOpenAvatar={handleOpenAvatar}
-              handleOpenCardImage={handleOpenCardImage}
-              cards={state.cards}
-              handleCardLike={handleCardLike}
-              openAcceptDeletePopup={openAcceptDeletePopup}
-              isLoadingCards={state.loadingCards}
-              loggedIn={state.loggedIn}
-            ></ProtectedRoute>
-          </Switch>
-
-          <EditProfilePopup
-            isUploading={state.isUploading}
-            onUpdateUser={handleUpdateUser}
-            onClose={closePopup}
-            isOpened={state.isOpenProfile}
-          />
-          <EditAvatarPopup
-            isUploading={state.isUploading}
-            onUpdateAvatar={handleUpdateAvatar}
-            onClose={closePopup}
-            isOpened={state.isOpenAvatar}
-          />
-          <AddPlacePopup
-            isUploading={state.isUploading}
-            onAddCard={handleAddPlaceSubmit}
-            onClose={closePopup}
-            isOpened={state.isOpenCard}
-          />
-          <PopupDeleteAccept
-            isUploading={state.isUploading}
-            onAcceptClick={deleteCardAccept}
-            onClose={closePopup}
-            isOpened={state.isOpenAccept}
-          />
-          <InfoToolTip
-            onClose={closePopup}
-            isOpened={state.isOpenInfoToolTip}
-            registrationResult={state.registrationResult}
-            name="InfoToolTip"
-          />
-        </CurrentUserContext.Provider>
-
-        <Footer />
-
-        <ImagePopup
-          selectedCard={state.card}
+        <EditProfilePopup
+          isUploading={state.isUploading}
+          onUpdateUser={handleUpdateUser}
           onClose={closePopup}
-          isOpened={state.isOpenImage}
-          selector="popup popup_photo"
-          name="Image"
+          isOpened={state.isOpenProfile}
         />
+        <EditAvatarPopup
+          isUploading={state.isUploading}
+          onUpdateAvatar={handleUpdateAvatar}
+          onClose={closePopup}
+          isOpened={state.isOpenAvatar}
+        />
+        <AddPlacePopup
+          isUploading={state.isUploading}
+          onAddCard={handleAddPlaceSubmit}
+          onClose={closePopup}
+          isOpened={state.isOpenCard}
+        />
+        <PopupDeleteAccept
+          isUploading={state.isUploading}
+          onAcceptClick={deleteCardAccept}
+          onClose={closePopup}
+          isOpened={state.isOpenAccept}
+        />
+        <InfoToolTip
+          onClose={closePopup}
+          isOpened={state.isOpenInfoToolTip}
+          registrationResult={state.registrationResult}
+          name="InfoToolTip"
+        />
+      </CurrentUserContext.Provider>
+
+      <Footer />
+
+      <ImagePopup
+        selectedCard={state.card}
+        onClose={closePopup}
+        isOpened={state.isOpenImage}
+        selector="popup popup_photo"
+        name="Image"
+      />
     </div>
   );
 }
