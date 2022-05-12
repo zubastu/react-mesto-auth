@@ -11,13 +11,19 @@ function Header({ loggedIn }) {
       <img className="header__logo" src={headerLogo} alt="Логотип" />
       <div className="header__info-container">
         {location.pathname === "/" && (
-          <Link to="/sign-in" className="header__button button">Выйти</Link>
+          <Link to="/sign-in" className="header__button button">
+            Выйти
+          </Link>
         )}
         {location.pathname === "/sign-up" && (
-          <Link to="/sign-in" className="header__button button">Войти</Link>
+          <Link to="/sign-in" className="header__button button">
+            Войти
+          </Link>
         )}
         {location.pathname === "/sign-in" && (
-          <Link to="/sign-in" className="header__button button">Регистрация</Link>
+          <Link to="/sign-up" className="header__button button">
+            Регистрация
+          </Link>
         )}
         {loggedIn && location.pathname === "/" && (
           <p className="header__user-info">Email в будущем</p>
