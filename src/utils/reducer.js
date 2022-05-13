@@ -45,13 +45,13 @@ export default function (state, action) {
       };
 
     case "delete_card":
-        const newCards = state.cards.filter(
-          (c) => c._id !== action.payload.card._id
-        );
-        return {
-          ...state,
-          cards: newCards,
-        };
+      const newCards = state.cards.filter(
+        (c) => c._id !== action.payload.card._id
+      );
+      return {
+        ...state,
+        cards: newCards,
+      };
 
     case "add_card":
       const addNewCard = [action.payload, ...state.cards];
@@ -108,14 +108,43 @@ export default function (state, action) {
         ...state,
         [`isOpen${state.openedPopupName}`]: false,
       };
-    case "set-history":
+    case "registration_ok":
       return {
         ...state,
-        history: action.dispatch
+        registrationResult: true,
+        isOpenInfoToolTip: true,
+        openedPopupName: "InfoToolTip",
+      };
+    case "registration_err":
+      return {
+        ...state,
+        registrationResult: false,
+        isOpenInfoToolTip: true,
+        openedPopupName: "InfoToolTip",
+      };
+    case "login_ok":
+      return {
+        ...state,
+        loggedIn: true,
+      };
+    case "auth_out":
+      return {
+        ...state,
+        loggedIn: false,
+      };
+    case "user_auth_set":
+      return {
+        ...state,
+        userAuthorized: action.payload,
+      };
+    case "user_exit":
+      return {
+        ...state,
+        userAuthorized: {},
+        loggedIn: false,
       };
 
     default:
       return state;
   }
 }
-

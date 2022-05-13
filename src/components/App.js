@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate  } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import Footer from "./Footer";
@@ -15,6 +15,7 @@ import Register from "./Register";
 import Login from "./Login";
 import InfoToolTip from "./InfoToolTip";
 import ProtectedRoute from "./ProtectedRoute";
+import * as auth from "../utils/auth";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
@@ -33,6 +34,7 @@ function App() {
     openedPopupName: "",
     loggedIn: false,
     registrationResult: false,
+    userAuthorized: {},
   });
 
   useEffect(() => {
@@ -66,7 +68,21 @@ function App() {
     };
   }, []);
 
-  let navigate = useNavigate()
+  useEffect(() => {
+    localStorage.getItem("token") &&
+      auth.checkAuth(localStorage.getItem("token")).then((data) => {
+        dispatch({
+          type: "user_auth_set",
+          payload: data,
+        });
+        dispatch({
+          type: "login_ok",
+        });
+        navigate("/", { replace: true });
+      });
+  }, []);
+
+  let navigate = useNavigate();
 
   const handleCardLike = (card, userId) => {
     const isLiked = card.likes.some((i) => i._id === userId);
@@ -229,92 +245,124 @@ function App() {
   };
 
   const onLogin = (authInfo) => {
-    console.log(authInfo);
-    navigate("/", { replace: true })
-
+    auth
+      .login(authInfo.password, authInfo.email)
+      .then((res) => {
+        res && localStorage.setItem("token", res.token);
+        dispatch({
+          type: "login_ok",
+        });
+      })
+      .then(() => {
+        localStorage.getItem("token") &&
+          auth.checkAuth(localStorage.getItem("token")).then((data) => {
+            dispatch({
+              type: "user_auth_set",
+              payload: data,
+            });
+            navigate("/", { replace: true });
+          });
+      });
   };
 
   const onRegister = (authInfo) => {
-    console.log(authInfo);
+    auth
+      .register(authInfo.password, authInfo.email)
+      .then((res) => {
+        res &&
+          dispatch({
+            type: "registration_ok",
+          });
+        navigate("/sign-in", { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: "registration_err",
+        });
+      });
+  };
+  const handleExitUser = () => {
+    localStorage.removeItem("token");
+    dispatch({
+      type: "user_exit",
+    });
+    navigate("/sign-in", { replace: true });
   };
 
   return (
-      <div className="page page_type_margin">
-        <CurrentUserContext.Provider value={state.currentUser}>
-          <Header loggedIn={state.loggedIn} dispatch={dispatch} />
-          <Routes>
-            <Route
-              path="/sign-up"
-              element={<Register onRegister={onRegister} />}
-            />
-            <Route
-              path="/sign-in"
-              element={<Login onLogin={onLogin} />}
-            />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute
-                  exact
-                  path="/"
-                  component={Main}
-                  handleOpenProfile={handleOpenProfile}
-                  handleOpenCard={handleOpenCard}
-                  handleOpenAvatar={handleOpenAvatar}
-                  handleOpenCardImage={handleOpenCardImage}
-                  cards={state.cards}
-                  handleCardLike={handleCardLike}
-                  openAcceptDeletePopup={openAcceptDeletePopup}
-                  isLoadingCards={state.loadingCards}
-                  loggedIn={state.loggedIn}
-                />
-              }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-
-          <EditProfilePopup
-            isUploading={state.isUploading}
-            onUpdateUser={handleUpdateUser}
-            onClose={closePopup}
-            isOpened={state.isOpenProfile}
+    <div className="page page_type_margin">
+      <CurrentUserContext.Provider value={state.currentUser}>
+        <Header loggedIn={state.loggedIn} authUser={state.userAuthorized} handleExitUser={handleExitUser} />
+        <Routes>
+          <Route
+            path="/sign-up"
+            element={<Register onRegister={onRegister} />}
           />
-          <EditAvatarPopup
-            isUploading={state.isUploading}
-            onUpdateAvatar={handleUpdateAvatar}
-            onClose={closePopup}
-            isOpened={state.isOpenAvatar}
+          <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute
+                exact
+                path="/"
+                component={Main}
+                handleOpenProfile={handleOpenProfile}
+                handleOpenCard={handleOpenCard}
+                handleOpenAvatar={handleOpenAvatar}
+                handleOpenCardImage={handleOpenCardImage}
+                cards={state.cards}
+                handleCardLike={handleCardLike}
+                openAcceptDeletePopup={openAcceptDeletePopup}
+                isLoadingCards={state.loadingCards}
+                loggedIn={state.loggedIn}
+              />
+            }
           />
-          <AddPlacePopup
-            isUploading={state.isUploading}
-            onAddCard={handleAddPlaceSubmit}
-            onClose={closePopup}
-            isOpened={state.isOpenCard}
-          />
-          <PopupDeleteAccept
-            isUploading={state.isUploading}
-            onAcceptClick={deleteCardAccept}
-            onClose={closePopup}
-            isOpened={state.isOpenAccept}
-          />
-          <InfoToolTip
-            onClose={closePopup}
-            isOpened={state.isOpenInfoToolTip}
-            registrationResult={state.registrationResult}
-            name="InfoToolTip"
-          />
-        </CurrentUserContext.Provider>
-
-        <Footer />
-
-        <ImagePopup
-          selectedCard={state.card}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+        <InfoToolTip
           onClose={closePopup}
-          isOpened={state.isOpenImage}
-          selector="popup popup_photo"
-          name="Image"
+          isOpened={state.isOpenInfoToolTip}
+          registrationResult={state.registrationResult}
+          name="InfoToolTip"
         />
-      </div>
+        <EditProfilePopup
+          isUploading={state.isUploading}
+          onUpdateUser={handleUpdateUser}
+          onClose={closePopup}
+          isOpened={state.isOpenProfile}
+        />
+        <EditAvatarPopup
+          isUploading={state.isUploading}
+          onUpdateAvatar={handleUpdateAvatar}
+          onClose={closePopup}
+          isOpened={state.isOpenAvatar}
+        />
+        <AddPlacePopup
+          isUploading={state.isUploading}
+          onAddCard={handleAddPlaceSubmit}
+          onClose={closePopup}
+          isOpened={state.isOpenCard}
+        />
+        <PopupDeleteAccept
+          isUploading={state.isUploading}
+          onAcceptClick={deleteCardAccept}
+          onClose={closePopup}
+          isOpened={state.isOpenAccept}
+        />
+      </CurrentUserContext.Provider>
+
+      <Footer />
+
+      <ImagePopup
+        selectedCard={state.card}
+        onClose={closePopup}
+        isOpened={state.isOpenImage}
+        selector="popup popup_photo"
+        name="Image"
+      />
+    </div>
   );
 }
 
