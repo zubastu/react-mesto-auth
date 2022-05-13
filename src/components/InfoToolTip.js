@@ -3,17 +3,22 @@ import Popup from "./Popup";
 import success from "../images/sucsess.svg";
 import wrong from "../images/wrong.svg";
 
-const InfoToolTip = ({ onClose, registrationResult, isOpened, name, dispatch }) => {
+const InfoToolTip = ({
+  onClose,
+  registrationResult,
+  isOpened,
+  name,
+  dispatch,
+}) => {
   const className = isOpened ? "popup_toolTip popup_opened" : "popup_toolTip";
   return (
-    <Popup className={className} closePopup={onClose} name={name} dispatch={dispatch}>
+    <Popup
+      className={className}
+      closePopup={onClose}
+      name={name}
+      dispatch={dispatch}
+    >
       <div className="tooltip">
-        <button
-          type="button"
-          className="close-btn close-btn_tooltip"
-          onClick={() => onClose(name)}
-        />
-
         <img
           src={registrationResult ? success : wrong}
           className="tooltip__image"
