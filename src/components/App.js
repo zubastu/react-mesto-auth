@@ -282,6 +282,7 @@ function App() {
         });
       });
   };
+
   const handleExitUser = () => {
     localStorage.removeItem("token");
     dispatch({
@@ -293,7 +294,11 @@ function App() {
   return (
     <div className="page page_type_margin">
       <CurrentUserContext.Provider value={state.currentUser}>
-        <Header loggedIn={state.loggedIn} authUser={state.userAuthorized} handleExitUser={handleExitUser} />
+        <Header
+          loggedIn={state.loggedIn}
+          authUser={state.userAuthorized}
+          handleExitUser={handleExitUser}
+        />
         <Routes>
           <Route
             path="/sign-up"
