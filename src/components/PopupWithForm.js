@@ -14,14 +14,19 @@ const PopupWithForm = ({
   submit,
   title,
   children,
-  dispatch
+  dispatch,
 }) => {
   const popupClassName = `${
     isOpened ? `${selector} popup_opened` : `${selector}`
   }`;
 
   return (
-    <Popup className={popupClassName} closePopup={closePopup} name={name} dispatch={dispatch}>
+    <Popup
+      className={popupClassName}
+      closePopup={closePopup}
+      name={name}
+      dispatch={dispatch}
+    >
       <form
         className={`${formName} form_type_popup`}
         id={`${name}__form`}
@@ -29,12 +34,6 @@ const PopupWithForm = ({
         onSubmit={onSubmit}
         noValidate
       >
-        <button
-          type="button"
-          className="close-btn close-btn_profile"
-          onClick={() => closePopup(name)}
-        />
-
         <h2 className={heading}>{title}</h2>
 
         <fieldset className="form__input-container input">

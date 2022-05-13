@@ -63,6 +63,7 @@
 @import url(./blocks/photo-cards/photo-cards.css);
 
 @import url(./blocks/popup/popup.css);
+@import url(./blocks/popup-container/popup-container.css);
 @import url(./blocks/popup-heading/popup-heading.css);
 @import url(./blocks/popup-heading/_type/popup-heading_type_form.css);
 @import url(./blocks/popup-heading/_type/popup-heading_type_light.css);

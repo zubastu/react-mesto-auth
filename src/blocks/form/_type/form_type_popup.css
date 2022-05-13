@@ -1,5 +1,5 @@
-.form_type_popup{
-    position: absolute;
-    z-index: 2;
-    height: 330px;
+.form_type_popup {
+  position: relative;
+  z-index: 2;
+  height: 330px;
 }

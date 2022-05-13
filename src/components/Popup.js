@@ -26,7 +26,14 @@ const Popup = ({ className, closePopup, children, name, dispatch }) => {
 
   return (
     <div className={className} onClick={closeByOverlayClick}>
-      {children}
+      <div className="popup-container">
+        {children}
+        <button
+          type="button"
+          className="close-btn"
+          onClick={() => closePopup(name)}
+        />
+      </div>
     </div>
   );
 };

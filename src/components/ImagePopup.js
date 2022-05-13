@@ -9,12 +9,6 @@ const ImagePopup = ({ selector, isOpened, onClose, selectedCard, name, dispatch 
   return (
     <Popup className={popupClassName} closePopup={onClose} name={name} dispatch={dispatch}>
       <div className="popup__photo-container">
-        <button
-          className="close-btn close-btn_photo "
-          type="button"
-          onClick={() => onClose(name)}
-        />
-
         <img
           src={selectedCard.link}
           alt={selectedCard.name}

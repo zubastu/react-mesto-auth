@@ -28,6 +28,10 @@
     background:url(../../images/popup__close-button.svg) center;
     width: 24px;
     height: 24px;
+    z-index: 3;
+    position: absolute;
+    top: -30px;
+    right: -30px;
 }
 @media screen and (max-width:500px) {
     .close-btn{
