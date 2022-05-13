@@ -61,7 +61,6 @@ function App() {
       });
   }, []);
 
-
   useEffect(() => {
     localStorage.getItem("token") &&
       auth.checkAuth(localStorage.getItem("token")).then((data) => {
@@ -77,6 +76,8 @@ function App() {
   }, []);
 
   let navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
 
   const handleCardLike = (card, userId) => {
     const isLiked = card.likes.some((i) => i._id === userId);
@@ -240,8 +241,8 @@ function App() {
         });
       })
       .then(() => {
-        localStorage.getItem("token") &&
-          auth.checkAuth(localStorage.getItem("token")).then((data) => {
+        token &&
+          auth.checkAuth(token).then((data) => {
             dispatch({
               type: "user_auth_set",
               payload: data,
