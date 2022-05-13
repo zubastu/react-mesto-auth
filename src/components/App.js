@@ -36,6 +36,9 @@ function App() {
     registrationResult: false,
     userAuthorized: {},
   });
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch({
@@ -74,10 +77,6 @@ function App() {
         navigate("/", { replace: true });
       });
   }, []);
-
-  let navigate = useNavigate();
-
-  const token = localStorage.getItem("token");
 
   const handleCardLike = (card, userId) => {
     const isLiked = card.likes.some((i) => i._id === userId);
