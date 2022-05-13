@@ -16,10 +16,7 @@ const Popup = ({ className, closePopup, children, name, dispatch }) => {
   }, []);
 
   const closeByOverlayClick = (e) => {
-    if (
-      e.target.classList.contains("popup_opened") ||
-      e.target.classList.contains("close-btn")
-    ) {
+    if (e.target.classList.contains("popup_opened")) {
       closePopup(name);
     }
   };
