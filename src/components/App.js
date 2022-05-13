@@ -248,6 +248,12 @@ function App() {
             });
             navigate("/", { replace: true });
           });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: "registration_err",
+        });
       });
   };
 
