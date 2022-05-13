@@ -30,7 +30,7 @@ const PopupWithForm = ({
       <form
         className={`${formName} form_type_popup`}
         id={`${name}__form`}
-        name={`${name}`}
+        name={name}
         onSubmit={onSubmit}
         noValidate
       >
