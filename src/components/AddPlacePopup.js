@@ -11,10 +11,7 @@ const AddPlacePopup = ({ onAddCard, onClose, isOpened, isUploading }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddCard({
-      name: card.name,
-      link: card.link,
-    });
+    onAddCard(card);
   }
 
   return (
