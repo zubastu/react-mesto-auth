@@ -6,11 +6,13 @@ const PopupDeleteAccept = ({
   onAcceptClick,
   isUploading,
   onClose,
+  dispatch
 }) => {
 
 
   return (
     <PopupWithForm
+      dispatch={dispatch}
       isUploading={isUploading}
       closePopup={onClose}
       selector="popup popup_accept-delete-card"

@@ -1,13 +1,13 @@
 import React from "react";
 import Popup from "./Popup";
 
-const ImagePopup = ({ selector, isOpened, onClose, selectedCard, name }) => {
+const ImagePopup = ({ selector, isOpened, onClose, selectedCard, name, dispatch }) => {
   const popupClassName = `${
     isOpened ? `${selector} popup_opened` : `${selector}`
   }`;
 
   return (
-    <Popup className={popupClassName} closePopup={onClose} name={name}>
+    <Popup className={popupClassName} closePopup={onClose} name={name} dispatch={dispatch}>
       <div className="popup__photo-container">
         <button
           className="close-btn close-btn_photo "

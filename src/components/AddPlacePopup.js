@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-const AddPlacePopup = ({ onAddCard, onClose, isOpened, isUploading }) => {
+const AddPlacePopup = ({ onAddCard, onClose, isOpened, isUploading, dispatch }) => {
   const [card, setCard] = useState({ name: "", link: "" });
 
   const handleChangeInput = (event) => {
@@ -16,6 +16,7 @@ const AddPlacePopup = ({ onAddCard, onClose, isOpened, isUploading }) => {
 
   return (
     <PopupWithForm
+      dispatch={dispatch}
       isUploading={isUploading}
       closePopup={onClose}
       selector="popup popup_card"

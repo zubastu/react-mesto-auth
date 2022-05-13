@@ -6,6 +6,7 @@ const EditAvatarPopup = ({
   isOpened,
   isUploading,
   onClose,
+  dispatch
 }) => {
   const ref = React.useRef();
   function handleSubmit(e) {
@@ -17,6 +18,7 @@ const EditAvatarPopup = ({
   }
   return (
     <PopupWithForm
+      dispatch={dispatch}
       isUploading={isUploading}
       closePopup={onClose}
       selector="popup popup_avatar"

@@ -61,12 +61,6 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    document.addEventListener("keyup", closeByEscape);
-    return () => {
-      document.removeEventListener("keyup", closeByEscape);
-    };
-  }, []);
 
   useEffect(() => {
     localStorage.getItem("token") &&
@@ -236,14 +230,6 @@ function App() {
     });
   };
 
-  const closeByEscape = (event) => {
-    if (event.key === "Escape") {
-      dispatch({
-        type: "close_by_escape",
-      });
-    }
-  };
-
   const onLogin = (authInfo) => {
     auth
       .login(authInfo.password, authInfo.email)
@@ -327,30 +313,35 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <InfoToolTip
+          dispatch={dispatch}
           onClose={closePopup}
           isOpened={state.isOpenInfoToolTip}
           registrationResult={state.registrationResult}
           name="InfoToolTip"
         />
         <EditProfilePopup
+          dispatch={dispatch}
           isUploading={state.isUploading}
           onUpdateUser={handleUpdateUser}
           onClose={closePopup}
           isOpened={state.isOpenProfile}
         />
         <EditAvatarPopup
+          dispatch={dispatch}
           isUploading={state.isUploading}
           onUpdateAvatar={handleUpdateAvatar}
           onClose={closePopup}
           isOpened={state.isOpenAvatar}
         />
         <AddPlacePopup
+          dispatch={dispatch}
           isUploading={state.isUploading}
           onAddCard={handleAddPlaceSubmit}
           onClose={closePopup}
           isOpened={state.isOpenCard}
         />
         <PopupDeleteAccept
+          dispatch={dispatch}
           isUploading={state.isUploading}
           onAcceptClick={deleteCardAccept}
           onClose={closePopup}
@@ -361,6 +352,7 @@ function App() {
       <Footer />
 
       <ImagePopup
+        dispatch={dispatch}
         selectedCard={state.card}
         onClose={closePopup}
         isOpened={state.isOpenImage}

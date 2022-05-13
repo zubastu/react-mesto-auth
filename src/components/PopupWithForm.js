@@ -14,13 +14,14 @@ const PopupWithForm = ({
   submit,
   title,
   children,
+  dispatch
 }) => {
   const popupClassName = `${
     isOpened ? `${selector} popup_opened` : `${selector}`
   }`;
 
   return (
-    <Popup className={popupClassName} closePopup={closePopup} name={name}>
+    <Popup className={popupClassName} closePopup={closePopup} name={name} dispatch={dispatch}>
       <form
         className={`${formName} form_type_popup`}
         id={`${name}__form`}
