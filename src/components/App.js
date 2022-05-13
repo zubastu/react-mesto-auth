@@ -1,6 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import Footer from "./Footer";
@@ -32,7 +31,7 @@ function App() {
     currentUser: {},
     cards: [],
     openedPopupName: "",
-    loggedIn: false,
+    loggedIn: true,
     registrationResult: false,
   });
 
@@ -227,33 +226,51 @@ function App() {
     }
   };
 
+  const onLogin = (authInfo) => {
+    console.log(authInfo);
+  };
+
+  const onRegister = (authInfo) => {
+    console.log(authInfo);
+  };
+
   return (
     <BrowserRouter>
       <div className="page page_type_margin">
         <CurrentUserContext.Provider value={state.currentUser}>
           <Header loggedIn={state.loggedIn} dispatch={dispatch} />
-          <Switch>
-            <Route exact path="/sign-up">
-              <Register />
-            </Route>
-            <Route exact path="/sign-in">
-              <Login />
-            </Route>
-            <ProtectedRoute
+          <Routes>
+            <Route
               exact
+              path="/sign-up"
+              element={<Register onRegister={onRegister} />}
+            />
+            <Route
+              exact
+              path="/sign-in"
+              element={<Login onLogin={onLogin} />}
+            />
+            <Route
               path="/"
-              component={Main}
-              handleOpenProfile={handleOpenProfile}
-              handleOpenCard={handleOpenCard}
-              handleOpenAvatar={handleOpenAvatar}
-              handleOpenCardImage={handleOpenCardImage}
-              cards={state.cards}
-              handleCardLike={handleCardLike}
-              openAcceptDeletePopup={openAcceptDeletePopup}
-              isLoadingCards={state.loadingCards}
-              loggedIn={state.loggedIn}
-            ></ProtectedRoute>
-          </Switch>
+              element={
+                <ProtectedRoute
+                  exact
+                  path="/"
+                  component={Main}
+                  handleOpenProfile={handleOpenProfile}
+                  handleOpenCard={handleOpenCard}
+                  handleOpenAvatar={handleOpenAvatar}
+                  handleOpenCardImage={handleOpenCardImage}
+                  cards={state.cards}
+                  handleCardLike={handleCardLike}
+                  openAcceptDeletePopup={openAcceptDeletePopup}
+                  isLoadingCards={state.loadingCards}
+                  loggedIn={state.loggedIn}
+                />
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
 
           <EditProfilePopup
             isUploading={state.isUploading}
