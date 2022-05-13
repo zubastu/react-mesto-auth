@@ -45,9 +45,7 @@ export default function (state, action) {
       };
 
     case "delete_card":
-      const newCards = state.cards.filter(
-        (c) => c._id !== action.payload.card._id
-      );
+      const newCards = state.cards.filter((c) => c._id !== action.payload);
       return {
         ...state,
         cards: newCards,
