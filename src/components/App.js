@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate  } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import Footer from "./Footer";
@@ -31,7 +31,7 @@ function App() {
     currentUser: {},
     cards: [],
     openedPopupName: "",
-    loggedIn: true,
+    loggedIn: false,
     registrationResult: false,
   });
 
@@ -65,6 +65,8 @@ function App() {
       document.removeEventListener("keyup", closeByEscape);
     };
   }, []);
+
+  let navigate = useNavigate()
 
   const handleCardLike = (card, userId) => {
     const isLiked = card.likes.some((i) => i._id === userId);
@@ -228,6 +230,8 @@ function App() {
 
   const onLogin = (authInfo) => {
     console.log(authInfo);
+    navigate("/", { replace: true })
+
   };
 
   const onRegister = (authInfo) => {
@@ -235,18 +239,15 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
       <div className="page page_type_margin">
         <CurrentUserContext.Provider value={state.currentUser}>
           <Header loggedIn={state.loggedIn} dispatch={dispatch} />
           <Routes>
             <Route
-              exact
               path="/sign-up"
               element={<Register onRegister={onRegister} />}
             />
             <Route
-              exact
               path="/sign-in"
               element={<Login onLogin={onLogin} />}
             />
@@ -314,7 +315,6 @@ function App() {
           name="Image"
         />
       </div>
-    </BrowserRouter>
   );
 }
 
