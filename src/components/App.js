@@ -9,13 +9,13 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import PopupDeleteAccept from "./PopupDeleteAccept";
 import reducer from "../utils/reducer";
 import Register from "./Register";
 import Login from "./Login";
 import InfoToolTip from "./InfoToolTip";
 import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth";
+import PopupWithForm from "./PopupWithForm";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
@@ -346,12 +346,19 @@ function App() {
           onClose={closePopup}
           isOpened={state.isOpenCard}
         />
-        <PopupDeleteAccept
+        <PopupWithForm
           dispatch={dispatch}
           isUploading={state.isUploading}
-          onAcceptClick={deleteCardAccept}
-          onClose={closePopup}
+          closePopup={closePopup}
+          selector="popup popup_accept-delete-card"
+          heading="popup-heading"
           isOpened={state.isOpenAccept}
+          formName="delete-container"
+          name="Accept"
+          title="Вы уверены?"
+          submit="submit-btn_type_accept"
+          onSubmit={deleteCardAccept}
+          innerButtonText="Да"
         />
       </CurrentUserContext.Provider>
 
