@@ -1,10 +1,9 @@
 import React, { useReducer, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { api } from "../utils/api";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
+import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -15,7 +14,8 @@ import Login from "./Login";
 import InfoToolTip from "./InfoToolTip";
 import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth";
-import PopupWithForm from "./PopupWithForm";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { api } from "../utils/api";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
@@ -37,8 +37,6 @@ function App() {
     userAuthorized: {},
   });
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch({
@@ -65,8 +63,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.getItem("token") &&
-      auth.checkAuth(localStorage.getItem("token")).then((data) => {
+    const token = localStorage.getItem("token");
+    token &&
+      auth.checkAuth(token).then((data) => {
         dispatch({
           type: "user_auth_set",
           payload: data,
@@ -240,6 +239,7 @@ function App() {
         });
       })
       .then(() => {
+        const token = localStorage.getItem("token");
         token &&
           auth.checkAuth(token).then((data) => {
             dispatch({
