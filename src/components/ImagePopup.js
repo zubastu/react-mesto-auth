@@ -7,7 +7,7 @@ const ImagePopup = ({ selector, isOpened, onClose, selectedCard, name, dispatch 
   }`;
 
   return (
-    <Popup className={popupClassName} closePopup={onClose} name={name} dispatch={dispatch}>
+    <Popup className={popupClassName} closePopup={onClose} name={name} dispatch={dispatch} isOpened={isOpened}>
       <div className="popup__photo-container">
         <img
           src={selectedCard.link}

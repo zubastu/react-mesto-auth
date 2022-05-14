@@ -26,6 +26,7 @@ const PopupWithForm = ({
       closePopup={closePopup}
       name={name}
       dispatch={dispatch}
+      isOpened={isOpened}
     >
       <form
         className={`${formName} form_type_popup`}

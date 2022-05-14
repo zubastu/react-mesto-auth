@@ -1,19 +1,13 @@
 import React, { useEffect } from "react";
 
-const Popup = ({ className, closePopup, children, name, dispatch }) => {
-  const closeByEscape = (event) => {
-    if (event.key === "Escape") {
-      dispatch({
-        type: "close_by_escape",
-      });
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("keyup", closeByEscape);
-    return () => {
-      document.removeEventListener("keyup", closeByEscape);
-    };
-  }, []);
+const Popup = ({
+  className,
+  closePopup,
+  children,
+  name,
+}) => {
+
+
 
   const closeByOverlayClick = (e) => {
     if (e.target.classList.contains("popup_opened")) {

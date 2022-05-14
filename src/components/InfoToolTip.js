@@ -6,7 +6,7 @@ import wrong from "../images/wrong.svg";
 const InfoToolTip = ({ onClose, registrationResult, isOpened, name, dispatch }) => {
   const className = isOpened ? "popup_toolTip popup_opened" : "popup_toolTip";
   return (
-    <Popup className={className} closePopup={onClose} name={name} dispatch={dispatch}>
+    <Popup className={className} closePopup={onClose} name={name} dispatch={dispatch} isOpened={isOpened}>
       <div className="tooltip">
         <button
           type="button"
