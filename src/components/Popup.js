@@ -1,10 +1,11 @@
 import React from "react";
 
 const Popup = ({
-  className,
   closePopup,
   children,
   name,
+  selector,
+  isOpened
 }) => {
 
 
@@ -14,6 +15,7 @@ const Popup = ({
       closePopup(name);
     }
   };
+  const className = isOpened ? `${selector} popup_opened` : `${selector}`
 
   return (
     <div className={className} onClick={closeByOverlayClick}>

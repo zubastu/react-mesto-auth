@@ -16,13 +16,9 @@ const PopupWithForm = ({
   children,
   dispatch,
 }) => {
-  const popupClassName = `${
-    isOpened ? `${selector} popup_opened` : `${selector}`
-  }`;
-
   return (
     <Popup
-      className={popupClassName}
+      selector={selector}
       closePopup={closePopup}
       name={name}
       dispatch={dispatch}
