@@ -39,6 +39,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!state.loggedIn) return;
     dispatch({
       type: "loading-cards-start",
     });
@@ -60,7 +61,7 @@ function App() {
           type: "loading-cards-end",
         });
       });
-  }, []);
+  }, [state.loggedIn]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

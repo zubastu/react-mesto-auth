@@ -22,6 +22,7 @@ const Popup = ({ closePopup, children, name, selector, isOpened }) => {
     };
   }, [isOpened, closePopup, name]);
 
+
   return (
     <div className={className} onClick={closeByOverlayClick}>
       <div className="popup-container">
