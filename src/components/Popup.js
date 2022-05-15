@@ -10,12 +10,13 @@ const Popup = ({ closePopup, children, name, selector, isOpened }) => {
   const className = isOpened ? `${selector} popup_opened` : `${selector}`;
 
   useEffect(() => {
+    if (!isOpened) return;
     const closeOnEscapeKey = (e) => {
       if (e.key === "Escape") {
         closePopup(name);
       }
     };
-    isOpened && document.addEventListener("keyup", closeOnEscapeKey);
+    document.addEventListener("keyup", closeOnEscapeKey);
     return () => {
       document.removeEventListener("keyup", closeOnEscapeKey);
     };
