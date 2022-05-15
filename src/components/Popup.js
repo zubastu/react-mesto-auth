@@ -1,12 +1,6 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 const Popup = ({ closePopup, children, name, selector, isOpened }) => {
-  const closeOnEscapeKey = (e) => {
-    if (e.key === "Escape") {
-      closePopup(name);
-      document.removeEventListener("keyup", closeOnEscapeKey);
-    }
-  };
   const closeByOverlayClick = (e) => {
     if (e.target.classList.contains("popup_opened")) {
       closePopup(name);
@@ -16,8 +10,16 @@ const Popup = ({ closePopup, children, name, selector, isOpened }) => {
   const className = isOpened ? `${selector} popup_opened` : `${selector}`;
 
   useEffect(() => {
-    isOpened && document.addEventListener("keyup", closeOnEscapeKey)
-  }, [isOpened])
+    const closeOnEscapeKey = (e) => {
+      if (e.key === "Escape") {
+        closePopup(name);
+      }
+    };
+    isOpened && document.addEventListener("keyup", closeOnEscapeKey);
+    return () => {
+      document.removeEventListener("keyup", closeOnEscapeKey);
+    };
+  }, [isOpened, closePopup, name]);
 
   return (
     <div className={className} onClick={closeByOverlayClick}>
