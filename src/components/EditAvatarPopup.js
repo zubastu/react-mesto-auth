@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = ({
@@ -6,9 +6,8 @@ const EditAvatarPopup = ({
   isOpened,
   isUploading,
   onClose,
-  dispatch,
 }) => {
-  const ref = React.useRef();
+  const ref = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,7 +23,6 @@ const EditAvatarPopup = ({
 
   return (
     <PopupWithForm
-      dispatch={dispatch}
       isUploading={isUploading}
       closePopup={onClose}
       selector="popup popup_avatar"

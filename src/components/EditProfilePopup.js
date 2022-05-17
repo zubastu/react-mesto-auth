@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
-const EditProfilePopup = ({ isOpened, onClose, isUploading, onUpdateUser, dispatch }) => {
+const EditProfilePopup = ({ isOpened, onClose, isUploading, onUpdateUser }) => {
   const [profile, setProfile] = useState({ name: "", about: "" });
 
   const handleChangeInput = (event) => {
@@ -29,7 +29,6 @@ const EditProfilePopup = ({ isOpened, onClose, isUploading, onUpdateUser, dispat
   return (
     <div>
       <PopupWithForm
-        dispatch={dispatch}
         onSubmit={handleSubmit}
         isUploading={isUploading}
         closePopup={onClose}

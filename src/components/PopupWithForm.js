@@ -14,14 +14,12 @@ const PopupWithForm = ({
   submit,
   title,
   children,
-  dispatch,
 }) => {
   return (
     <Popup
       selector={selector}
       closePopup={closePopup}
       name={name}
-      dispatch={dispatch}
       isOpened={isOpened}
     >
       <form

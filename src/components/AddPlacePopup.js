@@ -6,7 +6,6 @@ const AddPlacePopup = ({
   onClose,
   isOpened,
   isUploading,
-  dispatch,
 }) => {
   const [card, setCard] = useState({ name: "", link: "" });
 
@@ -28,7 +27,6 @@ const AddPlacePopup = ({
 
   return (
     <PopupWithForm
-      dispatch={dispatch}
       isUploading={isUploading}
       closePopup={onClose}
       selector="popup popup_card"
