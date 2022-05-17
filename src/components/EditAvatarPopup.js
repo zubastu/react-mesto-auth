@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = ({
@@ -6,9 +6,10 @@ const EditAvatarPopup = ({
   isOpened,
   isUploading,
   onClose,
-  dispatch
+  dispatch,
 }) => {
   const ref = React.useRef();
+
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateAvatar({
@@ -16,6 +17,11 @@ const EditAvatarPopup = ({
     });
     ref.current.value = "";
   }
+
+  useEffect(() => {
+    ref.current.value = "";
+  }, [isOpened]);
+
   return (
     <PopupWithForm
       dispatch={dispatch}

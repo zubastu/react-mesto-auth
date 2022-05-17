@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-const AddPlacePopup = ({ onAddCard, onClose, isOpened, isUploading, dispatch }) => {
+const AddPlacePopup = ({
+  onAddCard,
+  onClose,
+  isOpened,
+  isUploading,
+  dispatch,
+}) => {
   const [card, setCard] = useState({ name: "", link: "" });
 
   const handleChangeInput = (event) => {
@@ -13,6 +19,12 @@ const AddPlacePopup = ({ onAddCard, onClose, isOpened, isUploading, dispatch }) 
     e.preventDefault();
     onAddCard(card);
   }
+  useEffect(() => {
+    setCard({
+      name: "",
+      link: "",
+    });
+  }, [isOpened]);
 
   return (
     <PopupWithForm
