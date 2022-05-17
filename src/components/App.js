@@ -262,7 +262,7 @@ function App() {
     auth
       .register(authInfo.password, authInfo.email)
       .then((res) => {
-        res &&
+        res.data &&
           dispatch({
             type: "registration_ok",
           });
@@ -320,35 +320,30 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <InfoToolTip
-          dispatch={dispatch}
           onClose={closePopup}
           isOpened={state.isOpenInfoToolTip}
           registrationResult={state.registrationResult}
           name="InfoToolTip"
         />
         <EditProfilePopup
-          dispatch={dispatch}
           isUploading={state.isUploading}
           onUpdateUser={handleUpdateUser}
           onClose={closePopup}
           isOpened={state.isOpenProfile}
         />
         <EditAvatarPopup
-          dispatch={dispatch}
           isUploading={state.isUploading}
           onUpdateAvatar={handleUpdateAvatar}
           onClose={closePopup}
           isOpened={state.isOpenAvatar}
         />
         <AddPlacePopup
-          dispatch={dispatch}
           isUploading={state.isUploading}
           onAddCard={handleAddPlaceSubmit}
           onClose={closePopup}
           isOpened={state.isOpenCard}
         />
         <PopupWithForm
-          dispatch={dispatch}
           isUploading={state.isUploading}
           closePopup={closePopup}
           selector="popup popup_accept-delete-card"
