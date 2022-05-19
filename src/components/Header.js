@@ -25,9 +25,9 @@ function Header({ loggedIn, authUser, handleExitUser }) {
             Регистрация
           </Link>
         )}
-        {loggedIn && location.pathname === "/" && (
-          <p className="header__user-info">{authUser.data.email}</p>
-        )}
+       {/* {loggedIn && location.pathname === "/" && (
+                    <p className="header__user-info">{authUser.data.email}</p>
+        )}*/}
       </div>
     </div>
   );

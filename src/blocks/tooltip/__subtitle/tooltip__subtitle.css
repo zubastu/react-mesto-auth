@@ -7,3 +7,10 @@
   width: 358px;
   margin: 32px 0 0 0;
 }
+@media screen and (max-width:500px) {
+  .tooltip__subtitle{
+    font-size: 20px;
+    line-height: 24px;
+    width: 244px;
+  }
+}

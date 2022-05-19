@@ -47,10 +47,8 @@ const Register = ({ onRegister }) => {
           />
         </label>
       </fieldset>
-      <button
-        type="submit"
-        className="submit-btn submit-btn_type_light submit-btn_type_with-margin button"
-      >
+
+      <button type="submit" className="submit-btn submit-btn_type_light submit-btn_type_with-margin button">
         Зарегистрироваться
       </button>
       <Link className="register-link button" to="/sign-in">

@@ -12,12 +12,6 @@ const InfoToolTip = ({ onClose, registrationResult, isOpened, name }) => {
       isOpened={isOpened}
     >
       <div className="tooltip">
-        <button
-          type="button"
-          className="close-btn close-btn_tooltip"
-          onClick={() => onClose(name)}
-        />
-
         <img
           src={registrationResult ? success : wrong}
           className="tooltip__image"

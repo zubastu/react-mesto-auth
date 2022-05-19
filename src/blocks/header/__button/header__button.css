@@ -7,3 +7,10 @@
   list-style: none;
   text-decoration: none;
 }
+
+@media screen and (max-width:500px) {
+  .header__button{
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

@@ -234,6 +234,7 @@ function App() {
     auth
       .login(authInfo.password, authInfo.email)
       .then((res) => {
+        console.log(res)
         res && localStorage.setItem("token", res.token);
         dispatch({
           type: "login_ok",

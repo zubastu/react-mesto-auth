@@ -2,15 +2,16 @@
   width: 430px;
   background-color: #000000;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   flex: auto;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 500px) {
   .form_type_no-popup {
     width: 282px;
-    margin-top: 122px;
+    max-height: 70vh;
   }
 }
