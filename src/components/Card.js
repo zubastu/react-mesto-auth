@@ -2,12 +2,11 @@ import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Card = ({ card, onCardDelete, handleOpenCardImage, onCardLike }) => {
-
-  const checkLike = () => card.likes.some((id) => userInfo._id === id._id);
-
   const userInfo = React.useContext(CurrentUserContext);
 
-  const isOwn = card.owner._id === userInfo._id;
+  const checkLike = () => card.likes.some((id) => userInfo._id === id);
+
+  const isOwn = card.owner === userInfo._id;
 
   const deleteButtonClass = isOwn ? "card__delete" : "card__delete_disabled";
 

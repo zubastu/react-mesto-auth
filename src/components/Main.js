@@ -22,15 +22,16 @@ function Main({
       />
 
       <CardsContainer isLoadingCards={isLoadingCards}>
-        {cards.map((card) => (
-          <Card
-            key={card._id}
-            card={card}
-            onCardDelete={openAcceptDeletePopup}
-            onCardLike={handleCardLike}
-            handleOpenCardImage={handleOpenCardImage}
-          />
-        ))}
+        {cards.length > 0 &&
+          cards.map((card) => (
+            <Card
+              key={card._id}
+              card={card}
+              onCardDelete={openAcceptDeletePopup}
+              onCardLike={handleCardLike}
+              handleOpenCardImage={handleOpenCardImage}
+            />
+          ))}
       </CardsContainer>
     </div>
   );

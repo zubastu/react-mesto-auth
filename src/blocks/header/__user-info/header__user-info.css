@@ -1,4 +1,15 @@
 .header__user-info{
     color: #FFFFFF;
     grid-area: header-email;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+@media screen and (max-width:500px) {
+    .header__user-info{
+        margin: 0;
+    }
+}
+

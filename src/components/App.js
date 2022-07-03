@@ -13,7 +13,6 @@ import Register from "./Register";
 import Login from "./Login";
 import InfoToolTip from "./InfoToolTip";
 import ProtectedRoute from "./ProtectedRoute";
-import * as auth from "../utils/auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 
@@ -66,7 +65,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     token &&
-      auth.checkAuth(token).then((data) => {
+      api.auth(token).then((data) => {
         dispatch({
           type: "user_auth_set",
           payload: data,
@@ -79,7 +78,7 @@ function App() {
   }, []);
 
   const handleCardLike = (card, userId) => {
-    const isLiked = card.likes.some((i) => i._id === userId);
+    const isLiked = card.likes.some((i) => i === userId);
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
@@ -231,10 +230,9 @@ function App() {
   };
 
   const onLogin = (authInfo) => {
-    auth
+    api
       .login(authInfo.password, authInfo.email)
       .then((res) => {
-        console.log(res)
         res && localStorage.setItem("token", res.token);
         dispatch({
           type: "login_ok",
@@ -243,7 +241,7 @@ function App() {
       .then(() => {
         const token = localStorage.getItem("token");
         token &&
-          auth.checkAuth(token).then((data) => {
+          api.auth(token).then((data) => {
             dispatch({
               type: "user_auth_set",
               payload: data,
@@ -260,10 +258,10 @@ function App() {
   };
 
   const onRegister = (authInfo) => {
-    auth
+    api
       .register(authInfo.password, authInfo.email)
       .then((res) => {
-        res.data &&
+        res &&
           dispatch({
             type: "registration_ok",
           });
@@ -288,17 +286,13 @@ function App() {
   return (
     <div className="page page_type_margin">
       <CurrentUserContext.Provider value={state.currentUser}>
-        <Header
-          loggedIn={state.loggedIn}
-          authUser={state.userAuthorized}
-          handleExitUser={handleExitUser}
-        />
+        <Header loggedIn={state.loggedIn} handleExitUser={handleExitUser} />
         <Routes>
           <Route
-            path="/sign-up"
+            path="/signup"
             element={<Register onRegister={onRegister} />}
           />
-          <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
+          <Route path="/signin" element={<Login onLogin={onLogin} />} />
           <Route
             path="/"
             element={

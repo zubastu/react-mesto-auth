@@ -1,7 +1,7 @@
 export default class Client {
-  constructor(url, headers) {
+  constructor(url) {
     this._url = url;
-    this._headers = headers;
+    this._token = "";
   }
 
   _checkPromise(promise) {
@@ -11,17 +11,25 @@ export default class Client {
   }
 
   get(type) {
-    const promise = fetch(`${this._url}/${type}`, {
+    const promise = fetch(`${this._url}${type}`, {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json: charset=utf-8",
+        authorization: `Bearer ${this._token}`,
+      },
     });
     return this._checkPromise(promise);
   }
 
   post(type, item) {
-    const promise = fetch(`${this._url}/${type}`, {
+    const promise = fetch(`${this._url}${type}`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json: charset=utf-8",
+        authorization: `Bearer ${this._token}`,
+      },
       body: JSON.stringify({
         name: item.name,
         link: item.link,
@@ -32,9 +40,13 @@ export default class Client {
   }
 
   patch(type, keys) {
-    const promise = fetch(`${this._url}/${type}`, {
+    const promise = fetch(`${this._url}${type}`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json: charset=utf-8",
+        authorization: `Bearer ${this._token}`,
+      },
       body: JSON.stringify(keys),
     });
     return this._checkPromise(promise);
@@ -43,7 +55,11 @@ export default class Client {
   delete(type) {
     const promise = fetch(`${this._url}/${type}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json: charset=utf-8",
+        authorization: `Bearer ${this._token}`,
+      },
     });
     return this._checkPromise(promise);
   }
@@ -51,8 +67,38 @@ export default class Client {
   put(type) {
     const promise = fetch(`${this._url}/${type}`, {
       method: "PUT",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json: charset=utf-8",
+        authorization: `Bearer ${this._token}`,
+      },
     });
     return this._checkPromise(promise);
   }
+
+  postAuthInfo(password, email, type) {
+    const promise = fetch(`${this._url}${type}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json: charset=utf-8",
+      },
+      body: JSON.stringify({
+        password,
+        email,
+      }),
+    });
+    return this._checkPromise(promise);
+  }
+
+  checkAuth = (token) => {
+    const promise = fetch(`${this._url}/users/me`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    this._token = token;
+    return this._checkPromise(promise);
+  };
 }

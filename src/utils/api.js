@@ -6,44 +6,32 @@ export default class Api {
   }
 
   loadAllCards() {
-    return this._client.get("cards");
+    return this._client.get("/cards");
   }
 
   createCard(card) {
-    return this._client.post("cards", card);
+    return this._client.post("/cards", card);
   }
 
   deleteCard(id) {
-    return this._client.delete(`cards/${id}`);
+    return this._client.delete(`/cards/${id}`);
   }
 
   getUserInfo() {
-    return this._client.get("users/me");
+    return this._client.get("/users/me");
   }
 
   setUserInfo(data) {
-    return this._client.patch("users/me", {
+    return this._client.patch("/users/me", {
       name: data.name,
       about: data.about,
     });
   }
 
-  getAvatar() {
-    return this._client.get("users/me/avatar");
-  }
-
   setAvatar(avatarData) {
-    return this._client.patch("users/me/avatar", {
+    return this._client.patch("/users/me/avatar", {
       avatar: avatarData.avatar,
     });
-  }
-
-  useLike(id) {
-    return this._client.put(`cards/${id}/likes`);
-  }
-
-  removeLike(id) {
-    return this._client.delete(`cards/${id}/likes`);
   }
 
   changeLikeCardStatus(id, isLiked) {
@@ -53,12 +41,20 @@ export default class Api {
       return this._client.delete(`cards/${id}/likes`);
     }
   }
+
+  register(pass, email) {
+    return this._client.postAuthInfo(pass, email, "/signup");
+  }
+
+  login(pass, email) {
+    return this._client.postAuthInfo(pass, email, "/signin");
+  }
+
+  auth(token) {
+    return this._client.checkAuth(token);
+  }
 }
 
-const client = new Client("https://mesto.nomoreparties.co/v1/cohort-38", {
-  authorization: "fc656d80-9f90-48b6-9907-1de866c0eaf7",
-  "Content-Type": "application/json",
-  Accept: "application/json: charset=utf-8",
-});
+const client = new Client("https://api.zubastu.nomoreparties.sbs");
 
 export const api = new Api(client);
